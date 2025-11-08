@@ -9,9 +9,3 @@ RUN pip install -r req.txt
 COPY . ./
 
 CMD ["python", "main.py"]
-
-# docker build -t my_bot_image .  
-# docker run  -d -it my_bot_image 
-# docker ps 
-# docker stop id
-# docekr remover id
