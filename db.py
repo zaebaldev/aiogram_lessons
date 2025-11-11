@@ -13,6 +13,16 @@ email TEXT NOT NULL UNIQUE
 );
 """
 )
+cursor.execute(
+    """
+CREATE TABLE IF NOT EXISTS staff (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+full_name TEXT,
+email TEXT NOT NULL UNIQUE,
+phone_number TEXT NOT NULL UNIQUE
+);
+"""
+)
 # cursor.execute(
 #     "INSERT INTO users (username, email) VALUES ('alice', 'alice@email.com')"
 # )
