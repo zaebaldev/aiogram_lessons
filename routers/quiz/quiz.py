@@ -38,4 +38,5 @@ async def handle_user_form_email(message: types.Message, state: FSMContext):
         (user_data.get("username"), user_data.get("email")),
     )
     connection.commit()
+    await state.clear()
     await message.answer(text="Your data successfully created!")
