@@ -3,21 +3,22 @@ from aiogram import Bot, Dispatcher
 from aiogram.types import Message
 from config import settings
 from routers import router
-from db import cursor, connection
+from db import cursor
+from aiogram.filters import Command
 
 bot = Bot(token=str(settings.api_token))
 dp = Dispatcher()
 
 
-@dp.message()
-async def handle_user_name(message: Message):
-    full_name = message.from_user.full_name
-    await message.answer(text=f"username is {full_name}")
-    cursor.execute(
-        "INSERT INTO users (username, email) VALUES (?, ?)",
-        (full_name, f"{full_name}@email.com"),
-    )
-    connection.commit()
+@dp.message(Command("users"))
+async def get_all_users(message: Message):
+    users = cursor.execute("SELECT * FROM users")
+    fetched_users = users.fetchall()
+    print(fetched_users)
+    for user in fetched_users:
+        await message.answer(
+            text=user[1],
+        )
 
 
 async def main():
